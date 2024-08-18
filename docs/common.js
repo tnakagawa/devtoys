@@ -8,13 +8,18 @@ const TABS = [
 
 const getTabs = () => {
     const tabs = [];
+    let setActive = false;
     for (let tab of TABS) {
         if (location.pathname.indexOf(tab.link) >= 0) {
             tab['active'] = true;
+            setActive = true;
         } else {
             tab['active'] = false;
         }
         tabs.push(tab);
+    }
+    if (!setActive) {
+        tabs[0]['active'] = true;
     }
     return tabs
 };

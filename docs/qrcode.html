@@ -12,44 +12,53 @@
 </head>
 
 <body>
-    <article id="app" class="container">
-        <header>
-            <nav class="nav nav-underline">
-                <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
-                    :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
-            </nav>
-        </header>
-        <section class="m-2">
-            <table class="w-100">
-                <tbody>
-                    <tr>
-                        <td>
-                            <div class="form-floating mb-3">
-                                <input id="qrtext" class="form-control" type="text" v-model="qrtext" @change="createQr">
-                                <label for="qrtext">Text</label>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="form-floating mb-3">
-                                <select id="qrlevel" class="form-select" v-model="qrlevel" @change="createQr">
-                                    <option value="L">L (Low)</option>
-                                    <option value="M">M (Medium)</option>
-                                    <option value="Q">Q (Quartile)</option>
-                                    <option value="H">H (High)</option>
-                                </select>
-                                <label for="qrlevel">Level</label>
-                            </div>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+    <article id="app">
+        <div class="container">
+            <header>
+                <nav class="nav nav-underline">
+                    <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+                        :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+                </nav>
+            </header>
+            <section class="m-2">
+                <table class="w-100">
+                    <tbody>
+                        <tr>
+                            <td>
+                                <div class="form-floating mb-3">
+                                    <input id="qrtext" class="form-control" type="text" v-model="qrtext"
+                                        @change="createQr">
+                                    <label for="qrtext">Text</label>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="form-floating mb-3">
+                                    <select id="qrlevel" class="form-select" v-model="qrlevel" @change="createQr">
+                                        <option value="L">L (Low)</option>
+                                        <option value="M">M (Medium)</option>
+                                        <option value="Q">Q (Quartile)</option>
+                                        <option value="H">H (High)</option>
+                                    </select>
+                                    <label for="qrlevel">Level</label>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
-            <div class="text-center mt-4">
-                <canvas id="qr"></canvas>
+                <div class="text-center mt-4">
+                    <canvas id="qr"></canvas>
+                </div>
+            </section>
+        </div>
+        <!-- Loading -->
+        <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" v-show="loading">
+            <div class="d-flex vh-100 vw-100">
+                <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
             </div>
-        </section>
+        </div>
     </article>
 </body>
 

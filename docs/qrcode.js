@@ -11,7 +11,8 @@ function init() {
 const App = {
     data() {
         return {
-            tabs: getTabs(),
+            loading: true,
+            tabs: [],
             qrtext: '',
             qrlevel: 'M',
         }
@@ -30,6 +31,8 @@ const App = {
                 this.qrlevel = level;
             }
             this.createQr();
+            this.tabs = getTabs();
+            this.loading = false;
         },
         createQr() {
             const canvas = document.getElementById('qr');

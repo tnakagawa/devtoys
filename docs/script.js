@@ -10,7 +10,8 @@ function init() {
 const App = {
     data() {
         return {
-            tabs: getTabs(),
+            loading: true,
+            tabs: [],
         }
     },
     mounted() {
@@ -18,6 +19,8 @@ const App = {
     },
     methods: {
         async init() {
+            this.tabs = getTabs();
+            this.loading = false;
         },
     },
 }

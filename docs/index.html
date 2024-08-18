@@ -12,15 +12,23 @@
 </head>
 
 <body>
-  <article id="app" class="container">
-    <header>
-      <nav class="nav nav-underline">
-        <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
-          :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
-      </nav>
-    </header>
-    <section>
-    </section>
+  <article id="app">
+    <div class="container">
+      <header>
+        <nav class="nav nav-underline">
+          <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+            :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+        </nav>
+      </header>
+      <section>
+      </section>
+    </div>
+    <!-- Loading -->
+    <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" v-show="loading">
+      <div class="d-flex vh-100 vw-100">
+        <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
+      </div>
+    </div>
   </article>
 </body>
 

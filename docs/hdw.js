@@ -12,13 +12,14 @@ function init() {
 const App = {
     data() {
         return {
-            tabs: getTabs(),
+            loading: true,
+            tabs: [],
             toast: null,
-            toastmsg: "",
+            toastmsg: '',
             mnemonic: '',
             errMnemonic: false,
             path: "m/44'/60'/0'/0",
-            errPath: "",
+            errPath: '',
             wallets: [],
             count: 10,
         }
@@ -40,6 +41,8 @@ const App = {
                 this.path = path;
             }
             this.change();
+            this.tabs = getTabs();
+            this.loading = false;
         },
         showToast(message) {
             this.toastmsg = message;
