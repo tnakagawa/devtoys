@@ -12,81 +12,83 @@
 </head>
 
 <body>
-  <article id="app" class="container">
-    <header>
-      <nav class="nav nav-underline">
-        <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
-          :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
-      </nav>
-    </header>
-    <section class="m-2">
-      <button class="btn btn-secondary my-2" @click="generate">GENERATE</button>
-      <div class="my-2">
-        <label for="mnemonic" class="mb-1">Mnemonic</label>
-        <div class="btn btn-sm mb-1" @click="copy(mnemonic)">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard"
-            viewBox="0 0 16 16">
-            <path
-              d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-            <path
-              d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-          </svg>
+  <article id="app">
+    <div class="container">
+      <header>
+        <nav class="nav nav-underline">
+          <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+            :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+        </nav>
+      </header>
+      <section class="m-2">
+        <button class="btn btn-secondary my-2" @click="generate">GENERATE</button>
+        <div class="my-2">
+          <label for="mnemonic" class="mb-1">Mnemonic</label>
+          <div class="btn btn-sm mb-1" @click="copy(mnemonic)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-clipboard"
+              viewBox="0 0 16 16">
+              <path
+                d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+              <path
+                d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+            </svg>
+          </div>
+          <textarea id="mnemonic" :class="errMnemonic ? 'form-control is-invalid' : 'form-control'" v-model="mnemonic"
+            @change="change"></textarea>
+          <div class="invalid-feedback" v-text="errMnemonic" v-show="errMnemonic"></div>
         </div>
-        <textarea id="mnemonic" :class="errMnemonic ? 'form-control is-invalid' : 'form-control'" v-model="mnemonic"
-          @change="change"></textarea>
-        <div class="invalid-feedback" v-text="errMnemonic" v-show="errMnemonic"></div>
-      </div>
-      <div class="form-floating my-2">
-        <input id="path" type="text" :class="errPath ? 'form-control is-invalid' : 'form-control'" v-model="path"
-          @change="change">
-        <label for="path">Derivation Path</label>
-        <div class="invalid-feedback" v-text="errPath" v-show="errPath"></div>
-      </div>
-      <hr>
-      <div>
-        <div class="h5">Derived Addresses</div>
-        <div class="bi bi-clipboard"></div>
-        <table class="table">
-          <thead>
-            <tr>
-              <th scope="col">Path</th>
-              <th scope="col">Address</th>
-              <!-- <th scope="col">PublicKey</th> -->
-              <!-- <th scope="col">PrivateKey</th> -->
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="font-monospace fs-6" v-for="(wallet, index) in wallets">
-              <td scope="row" class="align-middle">
-                <div class=" my-auto" v-text="wallet.path">
-                </div>
-              </td>
-              <td class="d-flex">
-                <div class="my-auto" v-text="wallet.address"></div>
-                <div class="btn btn-sm mb-1" @click="copy(wallet.address)">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-clipboard" viewBox="0 0 16 16">
-                    <path
-                      d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
-                    <path
-                      d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
-                  </svg>
-                </div>
-              </td>
-              <!-- <td>
+        <div class="form-floating my-2">
+          <input id="path" type="text" :class="errPath ? 'form-control is-invalid' : 'form-control'" v-model="path"
+            @change="change">
+          <label for="path">Derivation Path</label>
+          <div class="invalid-feedback" v-text="errPath" v-show="errPath"></div>
+        </div>
+        <hr>
+        <div>
+          <div class="h5">Derived Addresses</div>
+          <div class="bi bi-clipboard"></div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">Path</th>
+                <th scope="col">Address</th>
+                <!-- <th scope="col">PublicKey</th> -->
+                <!-- <th scope="col">PrivateKey</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="font-monospace fs-6" v-for="(wallet, index) in wallets">
+                <td scope="row" class="align-middle">
+                  <div class=" my-auto" v-text="wallet.path">
+                  </div>
+                </td>
+                <td class="d-flex">
+                  <div class="my-auto" v-text="wallet.address"></div>
+                  <div class="btn btn-sm mb-1" @click="copy(wallet.address)">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                      class="bi bi-clipboard" viewBox="0 0 16 16">
+                      <path
+                        d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                      <path
+                        d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+                    </svg>
+                  </div>
+                </td>
+                <!-- <td>
                 <div v-text="wallet.publicKey"></div>
               </td> -->
-              <!-- <td>
+                <!-- <td>
                 <div v-text="wallet.privateKey"></div>
               </td> -->
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div>
-        <a href="https://iancoleman.io/bip39/" target="_blank">BIP39 - Mnemonic Code</a>
-      </div>
-    </section>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <a href="https://iancoleman.io/bip39/" target="_blank">BIP39 - Mnemonic Code</a>
+        </div>
+      </section>
+    </div>
     <!-- Toast -->
     <div class="position-fixed top-0 start-50 translate-middle-x p-3 mv-100">
       <div id="toast" class="toast align-items-center bg-primary-subtle border-0 w-100" role="alert"
@@ -100,7 +102,7 @@
       </div>
     </div>
     <!-- Loading -->
-    <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" v-show="loading">
+    <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" style="z-index: 999999;" v-show="loading">
       <div class="d-flex vh-100 vw-100">
         <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
       </div>
