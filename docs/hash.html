@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevToys | Hash</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.min.js"></script>
+  <script src="./hash.js" type="module"></script>
+</head>
+
+<body>
+  <article id="app">
+    <div class="container">
+      <header>
+        <nav class="nav nav-underline">
+          <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+            :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+        </nav>
+      </header>
+      <section class="m-2">
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashtext">Text</label>
+          <input class="form-control" type="text" id="hashtext" v-model="hashtext" @change="change">
+        </div>
+        <hr>
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashhex">Hex</label>
+          <input class="form-control" type="text" id="hashhex" v-model="hashhex" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashkeccak256">keccak256</label>
+          <input class="form-control" type="text" id="hashkeccak256" v-model="hashkeccak256" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashripemd160">ripemd160</label>
+          <input class="form-control" type="text" id="hashripemd160" v-model="hashripemd160" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashsha256">sha256</label>
+          <input class="form-control" type="text" id="hashsha256" v-model="hashsha256" readonly>
+        </div>
+        <div class="mb-3">
+          <label class="mb-2 fw-bold" for="hashsha512">sha512</label>
+          <input class="form-control" type="text" id="hashsha512" v-model="hashsha512" readonly>
+        </div>
+      </section>
+    </div>
+    <!-- Loading -->
+    <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" style="z-index: 999999;" v-show="loading">
+      <div class="d-flex vh-100 vw-100">
+        <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
+      </div>
+    </div>
+  </article>
+</body>
+
+</html>
