@@ -85,6 +85,7 @@ const App = {
                             address: child.address,
                             publicKey: child.publicKey,
                             privateKey: child.privateKey,
+                            pkinput: 'password',
                         });
                     }
                 }
@@ -92,6 +93,13 @@ const App = {
                 localStorage.setItem("hdw.path", this.path);
             } else {
                 localStorage.setItem("hdw.mnemonic", '');
+            }
+        },
+        setPkInput(wallet) {
+            if (wallet.pkinput == 'text') {
+                wallet.pkinput = 'password';
+            } else {
+                wallet.pkinput = 'text';
             }
         },
         copy(text) {

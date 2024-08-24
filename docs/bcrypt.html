@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DevToys | Menu</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.min.js"></script>
+  <script src="./bcrypt.js" type="module"></script>
+</head>
+
+<body>
+  <article id="app">
+    <div class="container">
+      <header>
+        <nav class="nav nav-underline">
+          <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+            :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+        </nav>
+      </header>
+      <section class="m-2">
+        <div class="mb-3">
+          <label class="mb-2" for="bcrypttarget">bcrypt target</label>
+          <input class="form-control" type="password" id="bcrypttarget" v-model="bcrypttarget" @change="change">
+        </div>
+        <div class="mb-3">
+          <label class="mb-2" for="bcrypthash">bcrypt hash</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="bcrypthash" v-model="bcrypthash" @change="change">
+            <button class="btn btn-outline-secondary" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                height="16" fill="currentColor" class="bi bi-clipboard" viewBox="0 0 16 16" @click="copy(bcrypthash)">
+                <path
+                  d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z" />
+                <path
+                  d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z" />
+              </svg></button>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label class="mb-2" for="bcryptcomp">bcrypt comparison target</label>
+          <input class="form-control" type="password" id="bcryptcomp" v-model="bcryptcomp" @change="change">
+        </div>
+        <div class="d-flex flex-column mb-3 w-100 mx-auto">
+          <div class="mx-auto bg-secondary bg-gradient text-white px-4 py-2 w-100 rounded-5 text-center"
+            v-show="bcryptresult == -1">
+            <div>Not verified</div>
+          </div>
+          <div class="mx-auto bg-primary bg-gradient text-white px-4 py-2 w-100 rounded-5 text-center"
+            v-show="bcryptresult == 1">
+            <div>Matched</div>
+          </div>
+          <div class="mx-auto bg-danger bg-gradient text-white px-4 py-2 w-100 rounded-5 text-center"
+            v-show="bcryptresult == 0">
+            <div>Not matched</div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <!-- Toast -->
+    <div class="position-fixed top-0 start-50 translate-middle-x p-3 mv-100">
+      <div id="toast" class="toast align-items-center bg-primary-subtle border-0 w-100" role="alert"
+        aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            <div v-text="toastmsg"></div>
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+    <!-- Loading -->
+    <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" style="z-index: 999999;" v-show="loading">
+      <div class="d-flex vh-100 vw-100">
+        <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
+      </div>
+    </div>
+  </article>
+</body>
+
+</html>
