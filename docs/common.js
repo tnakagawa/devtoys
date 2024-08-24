@@ -5,6 +5,7 @@ const TABS = [
     { name: "QR Code", link: "qrcode.html" },
     { name: "HD Wallet", link: "hdw.html" },
     { name: "bcrypt", link: "bcrypt.html" },
+    { name: "hash", link: "hash.html" },
 ];
 
 const getTabs = () => {
