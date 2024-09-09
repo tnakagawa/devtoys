@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevToys | Line</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue@3.4.38/dist/vue.global.prod.min.js"></script>
+    <script src="./line.js" type="module"></script>
+</head>
+
+<body>
+    <article id="app">
+        <div class="container">
+            <header>
+                <nav class="nav nav-underline">
+                    <a v-for="(item, index) in tabs" :href="item.link" v-text="item.name"
+                        :class="(item.active) ? 'nav-link active' : 'nav-link'"></a>
+                </nav>
+            </header>
+            <section>
+                <textarea class="w-100 m-2 form-control" rows="10" v-model="input"></textarea>
+                <div class="text-center">
+                    <div class="btn btn-primary" @click="format">Format</div>
+                </div>
+                <textarea class="w-100 m-2 form-control" rows="10" v-model="output" readonly></textarea>
+            </section>
+        </div>
+        <!-- Loading -->
+        <div class="position-fixed top-0 left-0 min-vh-100 min-vw-100 bg-black" style="z-index: 999999;"
+            v-show="loading">
+            <div class="d-flex vh-100 vw-100">
+                <div class="spinner-border m-auto text-light" style="width:5em;height:5em;"> </div>
+            </div>
+        </div>
+    </article>
+</body>
+
+</html>

@@ -6,6 +6,7 @@ const TABS = [
     { name: "HD Wallet", link: "hdw.html" },
     { name: "bcrypt", link: "bcrypt.html" },
     { name: "hash", link: "hash.html" },
+    { name: "line", link: "line.html" },
 ];
 
 const getTabs = () => {
